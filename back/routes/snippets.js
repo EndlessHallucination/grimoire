@@ -84,4 +84,23 @@ app.get("/", (req, res) => {
   }
 });
 
+app.delete("/:id", (req, res) => {
+  try {
+    const id = req.params["id"];
+    const stmt = db.prepare(`
+      DELETE FROM snippets WHERE id = ?
+      `);
+    const deleteSnippet = stmt.run(id);
+
+    if (deleteSnippet.changes === 0) {
+      return res.status(404).json({ error: "Snippet not found" });
+    }
+
+    return res.json({ success: true, message: "Snippet deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = app;
