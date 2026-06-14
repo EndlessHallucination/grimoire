@@ -43,4 +43,45 @@ app.post("/", (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  try {
+    const rows = db
+      .prepare(
+        `
+      SELECT snippets.name AS snippet_name,
+      snippets.explanation AS snippet_explanation,
+      snippets.code AS snippet_code,
+      snippet_tags.snippet_id, snippet_tags.tag_id,
+      tags.name AS tag_name FROM snippet_tags 
+      INNER JOIN snippets ON snippet_tags.snippet_id = snippets.id 
+      INNER JOIN tags ON snippet_tags.tag_id = tags.id;
+      `,
+      )
+      .all();
+
+    const snippetsMap = {};
+
+    rows.forEach((r) => {
+      if (!snippetsMap[r.snippet_id]) {
+        snippetsMap[r.snippet_id] = {
+          id: r.snippet_id,
+          name: r.snippet_name,
+          code: r.snippet_code,
+          explanation: r.snippet_explanation,
+          tags: [r.tag_name],
+        };
+      } else {
+        snippetsMap[r.snippet_id].tags.push(r.tag_name);
+      }
+    });
+    const snippetsArr = Object.values(snippetsMap);
+    res.status(201).json({
+      message: "Snippet returned successfully",
+      data: snippetsArr,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = app;
