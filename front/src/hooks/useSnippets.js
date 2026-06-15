@@ -13,7 +13,7 @@ function useSnippets() {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const result = await response.json();
-        setData(result);
+        setData(result.data);
       } catch (error) {
         if (error.name !== "AbortError") {
           setError(error.message);
