@@ -1,8 +1,8 @@
-const SnippetCard = ({ id, name, code, explanation, tags }) => {
+const SnippetCard = ({ id, name, code, explanation, tags, deleteSnippet }) => {
     return (
         <div>
             <h2>{name}</h2>
-            {/* <p>{code}</p> */}
+            {<p>{code}</p>}
             <p>{explanation}</p>
             <p>{tags.map(t =>
                 <span
@@ -10,6 +10,8 @@ const SnippetCard = ({ id, name, code, explanation, tags }) => {
                     {t}
                 </span>
             )}</p>
+
+            <button onClick={deleteSnippet}>Delete Snippet</button>
         </div>
     )
 }

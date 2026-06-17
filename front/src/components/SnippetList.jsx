@@ -1,6 +1,6 @@
 import SnippetCard from "./SnippetCard"
 
-const SnippetList = ({ snippets = [] }) => {
+const SnippetList = ({ snippets = [], deleteSnippet }) => {
     return (
         <div>
             {
@@ -11,6 +11,7 @@ const SnippetList = ({ snippets = [] }) => {
                         code={snippet.code}
                         explanation={snippet.explanation}
                         tags={snippet.tags}
+                        deleteSnippet={() => deleteSnippet(snippet.id)}
                     />
                 )
             }

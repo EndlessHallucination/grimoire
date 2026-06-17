@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddSnippetModal({refetch}) {
+export default function AddSnippetModal({ refetch }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [formData, setFormData] = useState({ name: '', code: '', explanation: '', tags: [] })
@@ -118,7 +118,7 @@ export default function AddSnippetModal({refetch}) {
                                     ))}
                                 </div>
                             </div>
-                            <button type="submit" onClick={handleSubmit}>
+                            <button type="submit">
                                 Add Snippet
                             </button>
                         </form>

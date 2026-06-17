@@ -26,10 +26,24 @@ function useSnippets() {
     fetchData();
   }, []);
 
+  const deleteSnippet = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/snippets/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      fetchData();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const refetch = async () => {
     fetchData();
   };
-  return { data, loading, error, refetch };
+  return { data, loading, error, refetch, deleteSnippet };
 }
 
 export default useSnippets;
