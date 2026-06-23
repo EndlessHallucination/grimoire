@@ -2,11 +2,12 @@ import SnippetCard from "./SnippetCard"
 
 const SnippetList = ({ snippets = [], deleteSnippet }) => {
     return (
-        <div>
+        <div className="snippet-grid">
             {
                 snippets.map(snippet =>
                     <SnippetCard
                         key={snippet.id}
+                        id={snippet.id}
                         name={snippet.name}
                         code={snippet.code}
                         explanation={snippet.explanation}

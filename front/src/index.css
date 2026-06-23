@@ -1,111 +1,275 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
   box-sizing: border-box;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+body {
+  background: #E8DFC8;
+  font-family: 'Courier New', monospace;
+  color: #3D3424;
   margin: 0;
+  padding: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.app > * + * {
+  margin-top: 20px;
+}
+
+/* ---------- Header / brand ---------- */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #3D3424;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: inherit;
+  font-size: 12px;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 6px 12px;
+  background: transparent;
+  border: 2px solid #3D3424;
+  color: #3D3424;
+}
+
+.btn:hover {
+  background: #DCD0AE;
+}
+
+.btn-primary {
+  background: #3D3424;
+  color: #E8DFC8;
+  border: 2px solid #3D3424;
+}
+
+.btn-primary:hover {
+  background: #2B2418;
+}
+
+.btn-danger {
+  border-color: #8B3A2B;
+  color: #8B3A2B;
+}
+
+.btn-danger:hover {
+  background: #8B3A2B;
+  color: #F2EBD9;
+}
+
+/* ---------- Filter bar ---------- */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.filter-input,
+.filter-select {
+  background: #F2EBD9;
+  border: 2px solid #3D3424;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #3D3424;
+  border-radius: 0;
+}
+
+.filter-input {
+  flex: 1;
+}
+
+.filter-label {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Snippet grid + card ---------- */
+.snippet-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.snippet-card {
+  background: #F2EBD9;
+  border: 2px solid #3D3424;
+  border-radius: 0;
+  padding: 14px;
+  box-shadow: 4px 4px 0 #3D3424;
+}
+
+.snippet-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: #3D3424;
+}
+
+.snippet-explanation {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  color: #5C4F35;
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+.snippet-code {
+  background: #2B2418;
+  color: #B8E0A8;
+  padding: 10px;
+  font-size: 12px;
+  margin: 0 0 10px;
+  overflow-x: auto;
+  border: 1px solid #1A1610;
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+}
+
+.snippet-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-pill {
+  background: #C9A876;
+  color: #3D3424;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 0;
+}
+
+.snippet-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ---------- Modal overlay (Add Snippet + Quiz) ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(61, 52, 36, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-panel {
+  background: #F2EBD9;
+  border: 2px solid #3D3424;
+  box-shadow: 6px 6px 0 #3D3424;
+  border-radius: 0;
+  padding: 20px;
+  width: 90%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #3D3424;
+  cursor: pointer;
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+}
+
+/* ---------- Form fields ---------- */
+.form-field {
+  margin-bottom: 14px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+  color: #5C4F35;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background: #FFFBF0;
+  border: 2px solid #3D3424;
+  padding: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  color: #3D3424;
+  border-radius: 0;
+}
+
+.form-textarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: 'Courier New', monospace;
+}
+
+.tag-input-row {
+  display: flex;
+  gap: 6px;
+}
+
+.add-snippet-row {
+  margin-bottom: 16px;
+}
+
+/* ---------- Quiz result ---------- */
+.quiz-result {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px dashed #3D3424;
+}
+
+.quiz-match {
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.quiz-match.correct {
+  color: #3B6D11;
+}
+
+.quiz-match.incorrect {
+  color: #8B3A2B;
+}
+
+.quiz-hint {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  color: #5C4F35;
+  margin: 0 0 10px;
 }

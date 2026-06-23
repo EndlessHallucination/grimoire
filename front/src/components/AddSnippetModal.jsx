@@ -48,20 +48,27 @@ export default function AddSnippetModal({ refetch }) {
     }
     return (
         <div>
-            <button onClick={() => setIsOpen(true)}>
+            <button
+                className="btn btn-primary"
+                onClick={() => setIsOpen(true)}>
                 Add Snippet
             </button>
             {isOpen && (
-                <div onClick={() => setIsOpen(false)}>
-                    <div onClick={(e) => e.stopPropagation()}>
-                        <button onClick={() => setIsOpen(false)}>
+                <div
+                    className="modal-overlay"
+                    onClick={() => setIsOpen(false)}>
+                    <div className="modal-panel"
+                        onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close"
+                            onClick={() => setIsOpen(false)}>
                             &times;
                         </button>
-                        <h3>Create Snippet</h3>
+                        <h3 className="modal-title">Create Snippet</h3>
                         <form onSubmit={handleSubmit}>
-                            <div>
-                                <label htmlFor="name">Snippet Name</label>
+                            <div className="form-field">
+                                <label className="form-label" htmlFor="name">Snippet Name</label>
                                 <input
+                                    className="form-input"
                                     type="text"
                                     id="name"
                                     name="name"
@@ -70,9 +77,10 @@ export default function AddSnippetModal({ refetch }) {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="code">Code</label>
+                            <div className="form-field">
+                                <label className="form-label" htmlFor="code">Code</label>
                                 <input
+                                    className="form-input"
                                     type="text"
                                     id="code"
                                     name="code"
@@ -81,9 +89,10 @@ export default function AddSnippetModal({ refetch }) {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="explanation">Explanation</label>
+                            <div className="form-field">
+                                <label className="form-label" htmlFor="explanation">Explanation</label>
                                 <input
+                                    className="form-input"
                                     type="text"
                                     id="explanation"
                                     name="explanation"
@@ -92,10 +101,11 @@ export default function AddSnippetModal({ refetch }) {
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="tags">Tags</label>
-                                <div>
+                            <div className="form-field">
+                                <label className="form-label" htmlFor="tags">Tags</label>
+                                <div className="tag-input-row">
                                     <input
+                                        className="form-input"
                                         type="text"
                                         id="tags"
                                         value={tagInput}
@@ -103,6 +113,7 @@ export default function AddSnippetModal({ refetch }) {
                                     />
 
                                     <button
+                                        className="btn"
                                         type="button"
                                         onClick={addTag}
                                     >
@@ -110,15 +121,15 @@ export default function AddSnippetModal({ refetch }) {
                                     </button>
                                 </div>
 
-                                <div>
+                                <div className="snippet-tags">
                                     {formData.tags.map((tag, index) => (
-                                        <span key={index}>
+                                        <span className="tag-pill" key={index}>
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
                             </div>
-                            <button type="submit">
+                            <button className="btn btn-primary" type="submit">
                                 Add Snippet
                             </button>
                         </form>

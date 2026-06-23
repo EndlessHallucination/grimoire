@@ -3,6 +3,7 @@ import AddSnippetModal from "./components/AddSnippetModal";
 import FilterBar from "./components/FilterBar";
 import SnippetList from "./components/SnippetList";
 import useSnippets from "./hooks/useSnippets";
+import Header from "./components/Header";
 
 const App = () => {
     const [searchTerm, setSearchTerm] = useState("")
@@ -26,15 +27,17 @@ const App = () => {
 
     const tagsArr = Array.from(dedupe)
     return (
-        <div>
-            <SnippetList snippets={filteredSnippets} deleteSnippet={deleteSnippet} />
-            <AddSnippetModal refetch={refetch} />
+        <div className="app">
+            <Header />
             <FilterBar
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
                 tagsArr={tagsArr}
                 selectedTag={selectedTag}
-                setSelectedTag={setSelectedTag} />
+                setSelectedTag={setSelectedTag}
+            />
+            <SnippetList snippets={filteredSnippets} deleteSnippet={deleteSnippet} />
+            <AddSnippetModal refetch={refetch} />
         </div>
     )
 }

@@ -5,17 +5,19 @@ const FilterBar = ({ searchTerm, setSearchTerm, tagsArr, selectedTag, setSelecte
     }
 
     return (
-        <div>
+        <div className="filter-bar">
             <input
                 type="text"
                 placeholder="Type to search..."
                 value={searchTerm}
                 onChange={(e) => { setSearchTerm(e.target.value) }}
+                className="filter-input"
             />
 
             <label htmlFor="tags">Choose a tag: </label>
 
             <select
+                className="filter-select"
                 id="tags"
                 value={selectedTag || ""}
                 onChange={handleChange}>
