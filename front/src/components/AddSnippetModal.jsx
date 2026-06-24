@@ -28,25 +28,24 @@ export default function AddSnippetModal({ isOpen, onClose, refetch }) {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
-
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        const finalTags = tagInput.trim()
+            ? [...formData.tags, tagInput.trim()]
+            : formData.tags;
+
         try {
             const response = await fetch('http://localhost:3000/api/snippets', {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...formData, tags: finalTags })
             })
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-            const data = await response.json()
             setFormData({ name: '', code: '', explanation: '', tags: [] })
+            setTagInput("");
             onClose()
-
             refetch();
         } catch (error) {
             console.error(error)
