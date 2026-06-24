@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-const QuizModal = ({ id, code, explanation, isOpen, onClose }) => {
-    const [attempt, setAttempt] = useState("");
-    const [revealed, setRevealed] = useState(false);
-    const [evaluation, setEvaluation] = useState(null);
+const QuizModal = ({ snippet, onClose, onNext }) => {
+    const { id, code, explanation } = snippet;
 
-    if (!isOpen) return null;
+    const [attempt, setAttempt] = useState("");
+    const [evaluation, setEvaluation] = useState(null);
+    const [revealed, setRevealed] = useState(false);
 
     const handleCheck = async () => {
         try {
@@ -19,16 +19,29 @@ const QuizModal = ({ id, code, explanation, isOpen, onClose }) => {
 
             const data = await res.json();
             setEvaluation(data.evaluation);
-            setRevealed(true);
         } catch (err) {
             console.error("Evaluation failed:", err);
         }
     };
 
+    const handleReveal = () => {
+        setRevealed(true);
+    };
+
+    const resetAndNext = () => {
+        setAttempt("");
+        setEvaluation(null);
+        setRevealed(false);
+
+        if (onNext) {
+            onNext();
+        }
+    };
+
     const handleClose = () => {
         setAttempt("");
-        setRevealed(false);
         setEvaluation(null);
+        setRevealed(false);
         onClose();
     };
 
@@ -37,41 +50,76 @@ const QuizModal = ({ id, code, explanation, isOpen, onClose }) => {
             <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal-title">Quiz</h2>
 
-                {!revealed &&
-                    <p className="snippet-explanation">{explanation}</p>
-                }
+                {/* only hide explanation before any interaction */}
+                {!evaluation && (
+                    <p className="snippet-explanation">
+                        {explanation}
+                    </p>
+                )}
 
                 <textarea
-                    className="form-textarea"
+                    className="form-textarea code-input"
                     value={attempt}
                     onChange={(e) => setAttempt(e.target.value)}
                     placeholder="Write the code from memory..."
-                    disabled={revealed}
                 />
 
-                {!revealed && (
-                    <button
-                        className="btn btn-primary"
-                        onClick={handleCheck}
-                    >Check</button>
+                {/* PRE-CHECK ACTIONS */}
+                {!evaluation && (
+                    <div className="modal-actions">
+                        <button className="btn btn-primary" onClick={handleCheck}>
+                            Check
+                        </button>
+
+                        {onNext && (
+                            <button className="btn" onClick={resetAndNext}>
+                                Skip
+                            </button>
+                        )}
+                    </div>
                 )}
 
-                {revealed && (
+                {/* VERDICT (appears when evaluation exists) */}
+                {evaluation && (
                     <div className="quiz-result">
                         <p className={`quiz-match ${evaluation?.match ? "correct" : "incorrect"}`}>
                             {evaluation?.match ? "Correct" : "Not quite"}
                         </p>
+
                         {!evaluation?.match && evaluation?.hint && (
-                            <p className="quiz-hint">Hint: {evaluation.hint}</p>
+                            <p className="quiz-hint">
+                                Hint: {evaluation.hint}
+                            </p>
                         )}
-                        <pre className="snippet-code">{code}</pre>
+
+                        {/* Reveal is now explicit and separate */}
+                        {!revealed && (
+                            <button className="btn" onClick={handleReveal}>
+                                Reveal Code
+                            </button>
+                        )}
+
+                        {revealed && (
+                            <pre className="snippet-code">
+                                {code}
+                            </pre>
+                        )}
                     </div>
                 )}
 
-                <button className="btn"
-                    onClick={handleClose}>
-                    Close
-                </button>
+                {/* ALWAYS AVAILABLE EXIT */}
+                <div className="modal-actions">
+                    <button className="btn" onClick={handleClose}>
+                        Close
+                    </button>
+
+                    {/* Next depends on evaluation, not reveal */}
+                    {evaluation && onNext && (
+                        <button className="btn btn-primary" onClick={resetAndNext}>
+                            Next
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );

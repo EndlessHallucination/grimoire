@@ -26,13 +26,22 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  background: #3D3424;
+  padding: 14px 18px;
+  border: 2px solid #1A1610;
+  box-shadow: 4px 4px 0 #1A1610;
 }
 
 .app-title {
   font-size: 18px;
   font-weight: 500;
-  letter-spacing: 1px;
-  color: #3D3424;
+  letter-spacing: 2px;
+  color: #E8DFC8;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
 }
 
 /* ---------- Buttons ---------- */
@@ -69,6 +78,26 @@ body {
 .btn-danger:hover {
   background: #8B3A2B;
   color: #F2EBD9;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #C9A876;
+  color: #C9A876;
+}
+
+.btn-secondary:hover {
+  background: #C9A876;
+  color: #3D3424;
+}
+
+.app-header .btn {
+  border-color: #E8DFC8;
+  color: #E8DFC8;
+}
+
+.app-header .btn:hover {
+  background: #5C4F35;
 }
 
 /* ---------- Filter bar ---------- */
@@ -158,6 +187,23 @@ body {
   font-size: 11px;
   padding: 3px 8px;
   border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tag-remove {
+  background: transparent;
+  border: none;
+  color: #3D3424;
+  font-size: 13px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.tag-remove:hover {
+  color: #8B3A2B;
 }
 
 .snippet-actions {
@@ -235,6 +281,17 @@ body {
   min-height: 100px;
   resize: vertical;
   font-family: 'Courier New', monospace;
+}
+
+.form-textarea.code-input {
+  background: #2B2418;
+  color: #B8E0A8;
+  border: 1px solid #1A1610;
+  caret-color: #B8E0A8;
+}
+
+.form-textarea.code-input::placeholder {
+  color: #5C7A52;
 }
 
 .tag-input-row {
