@@ -115,6 +115,3 @@ Runs on `http://localhost:5173` (Vite default).
 - "Skip" moves on without attempting. "Next" only appears after you've checked at least once.
 - "Reveal" is separate from checking — you can see the verdict without spoiling the original code if you want another attempt first.
 
-## Status
-
-Core features are complete: full CRUD, search + tag filtering, single-snippet and session-based quiz mode, AI-backed evaluation, and a pixel/beige visual theme.
